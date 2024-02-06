@@ -1,0 +1,23 @@
+body {
+  font-family: "Tangerine", serif;
+  font-size: 20px;
+}
+.navbar {
+  color: white;
+}
+
+.navbar-toggler-icon {
+  color: white;
+}
+
+.navbar-nav .nav-item .nav-link {
+  color: white;
+}
+
+.jumbotron {
+  background-color: #e6f7ff;
+}
+
+.display-4 {
+  color: #007bff;
+}

@@ -1,0 +1,40 @@
+<div class="list-container">
+  <div class="events-container">
+    <div class="left-column">
+      <h2 class="upcoming-events-heading">Upcoming Events</h2>
+      <ul>
+        <li *ngFor="let event of upcomingEvents; let i = index">
+          <div class="event">
+            <span class="event-dot"></span>
+            <strong>{{ event.name }}</strong> -
+            {{ event.dateTime | date: "MMM d, y, h:mm a" }}
+          </div>
+          <button
+            class="btn btn-sm btn-danger ml-5"
+            (click)="delete(event._id)"
+          >
+            Delete
+          </button>
+        </li>
+      </ul>
+    </div>
+    <div class="right-column">
+      <h2 class="recent-events-heading">Recent Events</h2>
+      <ul>
+        <li *ngFor="let event of recentEvents">
+          <div class="event">
+            <span class="event-dot"></span>
+            <strong>{{ event.name }}</strong> -
+            {{ event.dateTime | date: "MMM d, y, h:mm a" }}
+          </div>
+          <button
+            class="btn btn-sm btn-danger ml-5"
+            (click)="delete(event._id)"
+          >
+            Delete
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

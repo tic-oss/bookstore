@@ -1,0 +1,49 @@
+<div class="container">
+  <div
+    class="row d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center"
+  >
+    <h2 class="h2">All Book List</h2>
+    <div class="col-md-4 mt-3 mt-md-0">
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="searchQuery"
+        placeholder="Search by Book Name or Author Name"
+      />
+    </div>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Price</th>
+          <th scope="col">Author</th>
+          <th class="text-center" scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let book of filteredBooks(); let i = index">
+          <td>{{ book.name }}</td>
+          <td>{{ book.price }}</td>
+          <td>{{ book.author }}</td>
+          <td class="text-center">
+            <button
+              class="btn btn-sm btn-primary mr-2"
+              [routerLink]="'/edit-book/' + book._id"
+            >
+              Edit
+            </button>
+            <button
+              class="btn btn-sm btn-danger ml-2"
+              (click)="delete(book._id, i)"
+            >
+              Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

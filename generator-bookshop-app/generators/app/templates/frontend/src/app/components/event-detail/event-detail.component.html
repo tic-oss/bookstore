@@ -1,0 +1,35 @@
+<!-- event-detail.component.html -->
+
+<div class="container">
+  <div class="row justify-content-center mt-3">
+    <div class="col-md-6">
+      <form [formGroup]="updateForm" (ngSubmit)="onUpdate()">
+        <div class="form-group">
+          <label for="name">Event Name</label>
+          <input
+            type="text"
+            id="name"
+            class="form-control"
+            formControlName="name"
+            placeholder="Enter Event Name"
+          />
+        </div>
+        <div class="form-group">
+          <label for="dateTime">Event Date and Time</label>
+          <input
+            type="datetime-local"
+            id="dateTime"
+            class="form-control"
+            formControlName="dateTime"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <button class="btn btn-primary btn-block" type="submit">
+            Update Event
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

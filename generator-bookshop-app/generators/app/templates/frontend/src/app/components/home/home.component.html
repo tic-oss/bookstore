@@ -1,0 +1,10 @@
+<div *ngIf="!isAuthenticated">
+  <button class="vvd" (click)="login()" id="login" data-cy="login">
+    <span>Sign In</span>
+  </button>
+</div>
+<div *ngIf="isAuthenticated">
+  <button class="vvd" (click)="logout()" id="logout" data-cy="logout">
+    <span>Sign Out</span>
+  </button>
+</div>
