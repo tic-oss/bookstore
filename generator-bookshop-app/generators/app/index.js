@@ -106,8 +106,8 @@ module.exports = class extends Generator {
       this.destinationPath("backend/src/database/db.js")
     );
     this.fs.copyTpl(
-      this.templatePath("backend/src/model/book.js"),
-      this.destinationPath("backend/src/model/book.js")
+      this.templatePath("backend/src/model/Book.js"),
+      this.destinationPath("backend/src/model/Book.js")
     );
     this.fs.copyTpl(
       this.templatePath("backend/src/dbmigration/migrate-mongo-config.js"),
@@ -126,8 +126,8 @@ module.exports = class extends Generator {
       )
     );
     this.fs.copyTpl(
-      this.templatePath("backend/src/model/event.js"),
-      this.destinationPath("backend/src/model/event.js")
+      this.templatePath("backend/src/model/Event.js"),
+      this.destinationPath("backend/src/model/Event.js")
     );
     this.fs.copyTpl(
       this.templatePath("backend/src/routes/book.routes.js"),
