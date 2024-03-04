@@ -6,7 +6,7 @@ async function createTable() {
     await client.query(
           `CREATE TABLE IF NOT EXISTS note (
               id SERIAL PRIMARY KEY,
-              name VARCHAR(255) ,
+              title VARCHAR(255) ,
               description TEXT
           )`
       );

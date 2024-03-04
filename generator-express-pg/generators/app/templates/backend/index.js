@@ -28,7 +28,7 @@ app.use(keycloak.middleware());
 
 app.use("/api", keycloak.protect(), noteRoutes);
 
-const port = 3000;
+const port = `<%= portNumber %>`;
 app.listen(port, () => {
   console.log("Listening on Port: " + port);
 });

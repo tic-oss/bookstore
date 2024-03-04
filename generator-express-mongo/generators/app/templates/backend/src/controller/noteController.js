@@ -1,4 +1,4 @@
-const Note = require("../model/notes");
+const Note = require("../model/notes.js");
 const { connectToRabbitMQ } = require("../config/rabbitmq-config.js");
 
 const sendMessageToQueue = async (queueName, message) => {

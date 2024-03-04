@@ -1,0 +1,8 @@
+{
+  "realm": "Bookstore",
+  "auth-server-url": "http://localhost:8080/realms/Bookstore/protocol/openid-connect/auth",
+  "ssl-required": "external",
+  "resource": "Book_store",
+  "public-client": true,
+  "confidential-port": 0
+}

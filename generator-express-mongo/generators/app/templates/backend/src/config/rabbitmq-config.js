@@ -17,24 +17,17 @@ const connectToRabbitMQAndConsume = () => {
     connection.createChannel((channelError, channel) => {
       if (channelError) {
         console.error("Error creating channel:", channelError);
-        connection.close(); 
         return;
       }
 
-      channel.assertQueue(QUEUE_NAME, { durable: false }, (queueError, _) => {
-        if (queueError) {
-          console.error("Error asserting queue:", queueError);
-          connection.close(); 
-          return;
-        }
+      channel.assertQueue(QUEUE_NAME, { durable: false });
 
-        console.log("Waiting for messages in queue:", QUEUE_NAME);
-        channel.consume(QUEUE_NAME, (message) => {
-          console.log("Received message:", message.content.toString());
-        }, { noAck: true });
+      console.log("Waiting for messages in queue:", QUEUE_NAME);
+      channel.consume(QUEUE_NAME, (message) => {
+        console.log("Received message:", message.content.toString());
+      }, { noAck: true }); 
 
-        console.log("Consumer started...");
-      });
+      console.log("Consumer started...");
     });
   });
 };

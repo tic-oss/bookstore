@@ -12,15 +12,18 @@ const connectToRabbitMQ = () => {
     amqp.connect(`amqp://${RABBIT_USER}:${RABBIT_PS}@${HOST_NAME}:${RUNNING_PORT}`, (connectionError, connection) => {
       if (connectionError) {
         reject(`Error connecting to RabbitMQ: ${connectionError}`);
-      } else {
+      }
+      else {
         connection.createChannel((channelError, channel) => {
           if (channelError) {
             reject(`Error creating channel: ${channelError}`);
-          } else {
+          } 
+          else {
             channel.assertQueue(QUEUE_NAME, { durable: false }, (queueError, ok) => {
               if (queueError) {
                 reject(`Error declaring queue: ${queueError}`);
-              } else {
+              } 
+              else {
                 console.log(`Queue '${QUEUE_NAME}' created successfully.`);
                 resolve({ connection, channel });
               }

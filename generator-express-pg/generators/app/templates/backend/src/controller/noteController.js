@@ -1,36 +1,36 @@
 const pool = require("../database/db.js");
 const { connectToRabbitMQ } = require("../config/rabbitmq-config.js");
 
-const sendMessageToQueue = async (queueName, message, postData) => {
+const sendMessageToQueue = async (queueTitle, message, postData) => {
   try {
     console.log("Data being sent to RabbitMQ queue:", postData);
     const { channel } = await connectToRabbitMQ();
-    channel.assertQueue(queueName, { durable: false });
-    channel.sendToQueue(queueName, Buffer.from(JSON.stringify(message)));
-    console.log(`Message sent to RabbitMQ in queue: ${queueName}`);
+    channel.assertQueue(queueTitle, { durable: false });
+    channel.sendToQueue(queueTitle, Buffer.from(JSON.stringify(message)));
+    console.log(`Message sent to RabbitMQ in queue: ${queuetitle}`);
   } catch (error) {
     console.error("Error sending message to RabbitMQ:", error);
   }
 };
 
 exports.addNote = async (req, res, next) => {
-  const { name, description } = req.body;
+  const { title, description } = req.body;
   try {
-    if (!name) {
-      return res.status(400).json({ message: "Name field is required" });
+    if (!title) {
+      return res.status(400).json({ message: "Title field is required" });
     }
     const query = {
-      text: "INSERT INTO note (name, description) VALUES ($1, $2) RETURNING *",
-      values: [name, description],
+      text: "INSERT INTO note (title, description) VALUES ($1, $2) RETURNING *",
+      values: [title, description]
     };
     const result = await pool.query(query);
     sendMessageToQueue(
       "notesQueue",
       {
         action: "add",
-        note: result.rows[0],
+        note: result.rows[0]
       },
-      { name, description }
+      { title, description }
     );
 
     res.status(201).json(result.rows[0]);
@@ -47,7 +47,7 @@ exports.getAllNotes = async (req, res, next) => {
     {
       sendMessageToQueue("notesQueue", {
         action: "getAll",
-        note: result.rows[0],
+        note: result.rows[0]
       });
     }
     res.json(result.rows);
@@ -68,7 +68,7 @@ exports.getNoteById = async (req, res, next) => {
       console.log("Note retrieved successfully");
       sendMessageToQueue("notesQueue", {
         action: "get",
-        note: result.rows[0],
+        note: result.rows[0]
       });
       res.json(result.rows[0]);
     }
@@ -80,14 +80,15 @@ exports.getNoteById = async (req, res, next) => {
 
 exports.updateNote = async (req, res, next) => {
   const { id } = req.params;
-  const { name, description } = req.body;
+  const { title, description } = req.body;
   try {
-    if (!name) {
-      return res.status(400).json({ message: "Name field is required" });
+    if (!title) {
+      return res.status(400).json({ message: "Title field is required" });
     }
     const query = {
-      text: "UPDATE note SET name = $1, description = $2 WHERE id = $3 RETURNING *",
-      values: [name, description, id],
+      text:
+        "UPDATE note SET title = $1, description = $2 WHERE id = $3 RETURNING *",
+      values: [title, description, id]
     };
     const result = await pool.query(query);
     if (result.rows.length === 0) {
@@ -98,7 +99,7 @@ exports.updateNote = async (req, res, next) => {
       sendMessageToQueue("notesQueue", {
         action: "update",
         noteId: id,
-        newData: result.rows[0],
+        newData: result.rows[0]
       });
       res.json(result.rows[0]);
     }
@@ -115,7 +116,7 @@ exports.deleteNote = async (req, res, next) => {
     console.log("Note deleted successfully");
     sendMessageToQueue("notesQueue", {
       action: "delete",
-      noteId: id,
+      noteId: id
     });
     res.sendStatus(204);
   } catch (error) {
