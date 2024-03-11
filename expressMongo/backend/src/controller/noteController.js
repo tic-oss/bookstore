@@ -1,16 +1,16 @@
 const Note = require("../model/notes");
 const { connectToRabbitMQ } = require("../config/rabbitmq-config.js");
 
-const sendMessageToQueue = async (queueName, message) => {
-  try {
-    const channel = await connectToRabbitMQ();
-    channel.assertQueue(queueName, { durable: false });
-    channel.sendToQueue(queueName, Buffer.from(JSON.stringify(message)));
-    console.log(`Message sent to RabbitMQ in queue: ${queueName}`);
-  } catch (error) {
-    console.error("Error sending message to RabbitMQ:", error);
-  }
-};
+// const sendMessageToQueue = async (queueName, message) => {
+//   try {
+//     const channel = await connectToRabbitMQ();
+//     channel.assertQueue(queueName, { durable: false });
+//     channel.sendToQueue(queueName, Buffer.from(JSON.stringify(message)));
+//     console.log(`Message sent to RabbitMQ in queue: ${queueName}`);
+//   } catch (error) {
+//     console.error("Error sending message to RabbitMQ:", error);
+//   }
+// };
 
 exports.addnote = async (req, res, next) => {
   try {

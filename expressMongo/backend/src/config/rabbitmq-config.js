@@ -32,7 +32,6 @@ const connectToRabbitMQAndConsume = () => {
         channel.consume(QUEUE_NAME, (message) => {
           console.log("Received message:", message.content.toString());
         }, { noAck: true });
-
         console.log("Consumer started...");
       });
     });
